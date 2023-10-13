@@ -1,4 +1,4 @@
-package com.art.weatherapp.ui
+package com.art.weatherapi
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
