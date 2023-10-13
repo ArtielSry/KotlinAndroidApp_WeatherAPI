@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                     binding.tvCountry.text = ", ${response.body()!!.sys.country}"
 
 
-                    binding.tvWeather.text = response.body()!!.weather.firstOrNull()?.description
+                    binding.tvWeather.text = response.body()!!.weather.firstOrNull()?.main
 
                     binding.tvWind.text = "${response.body()!!.wind.speed}km"
                     binding.tvHumidity.text = "${response.body()!!.main.humidity}%"
