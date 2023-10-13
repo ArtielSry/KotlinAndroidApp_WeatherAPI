@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
     android:background="@drawable/blur"
-    android:padding="30dp">
+    android:padding="30dp"
+    tools:context=".MainActivity">
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
@@ -29,17 +29,17 @@
 
         <TextView
             android:id="@+id/tvCity"
+            style="@style/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/text"
             android:textSize="24sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvCountry"
+            style="@style/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/text"
             android:textSize="18sp" />
     </LinearLayout>
 
@@ -65,19 +65,19 @@
 
         <TextView
             android:id="@+id/tvDegrees"
+            style="@style/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            style="@style/text"
             android:textSize="50sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvWeather"
+            style="@style/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            style="@style/text"
             android:textSize="24sp" />
     </LinearLayout>
 
@@ -92,12 +92,14 @@
         app:layout_constraintTop_toBottomOf="@+id/second">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/border"
             android:fontFamily="@font/garabito"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="7dp">
 
             <ImageView
                 android:layout_width="25dp"
@@ -111,16 +113,17 @@
                 android:id="@+id/tvWind"
                 style="@style/text"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="viento" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/border"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="7dp">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -133,16 +136,17 @@
                 android:id="@+id/tvHumidity"
                 style="@style/text"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="viento" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/border"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="7dp">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -155,19 +159,19 @@
                 android:id="@+id/tvSunrise"
                 style="@style/text"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="viento" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:orientation="horizontal"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-        app:layout_constraintStart_toStartOf="parent">
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -177,29 +181,29 @@
             app:tint="@color/white" />
 
         <TextView
+            style="@style/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/text"
             android:text="Daily forecast" />
     </LinearLayout>
+
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

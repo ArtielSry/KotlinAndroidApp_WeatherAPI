@@ -5,6 +5,7 @@ import android.net.http.HttpException
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.SearchView
 import android.widget.Toast
 import com.art.weatherapi.data.models.Weather
 import com.art.weatherapi.databinding.ActivityMainBinding
@@ -13,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.http.Query
 import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
@@ -35,6 +37,8 @@ class MainActivity : AppCompatActivity() {
         getCurrentWeather()
     }
 
+
+
     @SuppressLint("SetTextI18n")
     private fun getCurrentWeather() {
         GlobalScope.launch(Dispatchers.IO) {
@@ -42,10 +46,6 @@ class MainActivity : AppCompatActivity() {
                 RetrofitInstance.api.getCurrentWeather("madrid", "metric", KEY_API)
             } catch (e: IOException) {
                 Toast.makeText(applicationContext, "app error ${e.message}", Toast.LENGTH_SHORT)
-                    .show()
-                return@launch
-            } catch (e: HttpException) {
-                Toast.makeText(applicationContext, "http error ${e.message}", Toast.LENGTH_SHORT)
                     .show()
                 return@launch
             }
@@ -60,8 +60,7 @@ class MainActivity : AppCompatActivity() {
 
                     binding.tvWind.text = "${response.body()!!.wind.speed}km"
                     binding.tvHumidity.text = "${response.body()!!.main.humidity}%"
-                    binding.tvSunrise.text = "${response.body()!!.main.temp_min}º Min"
-
+                    binding.tvSunrise.text = "${response.body()!!.main.temp_min}º"
                 }
             }
         }
