@@ -1,21 +1,19 @@
 package com.art.weatherapi
 
 import android.annotation.SuppressLint
-import android.net.http.HttpException
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.SearchView
 import android.widget.Toast
-import com.art.weatherapi.data.models.Weather
 import com.art.weatherapi.databinding.ActivityMainBinding
 import com.art.weatherapi.utils.RetrofitInstance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.http.Query
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,6 +28,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
         initUI()
     }
 
@@ -37,13 +37,11 @@ class MainActivity : AppCompatActivity() {
         getCurrentWeather()
     }
 
-
-
     @SuppressLint("SetTextI18n")
     private fun getCurrentWeather() {
         GlobalScope.launch(Dispatchers.IO) {
             val response = try {
-                RetrofitInstance.api.getCurrentWeather("madrid", "metric", KEY_API)
+                RetrofitInstance.api.getCurrentWeather("Berlin", "metric", KEY_API, "en")
             } catch (e: IOException) {
                 Toast.makeText(applicationContext, "app error ${e.message}", Toast.LENGTH_SHORT)
                     .show()
@@ -60,9 +58,38 @@ class MainActivity : AppCompatActivity() {
 
                     binding.tvWind.text = "${response.body()!!.wind.speed}km"
                     binding.tvHumidity.text = "${response.body()!!.main.humidity}%"
-                    binding.tvSunrise.text = "${response.body()!!.main.temp_min}º"
+                    binding.tvSunrise.text = "${response.body()!!.main.feels_like.toInt()}º"
+
+                    fun date(): String {
+                        val locale = Locale("en", "US")
+                        val sdf = SimpleDateFormat("dd MMMM yyyy", locale)
+                        return sdf.format((Date()))
+                    }
+
+                    fun dayName(timestamp: Long): String {
+                        val locale = Locale("en", "US")
+                        val sdf = SimpleDateFormat("EEEE", locale)
+                        return sdf.format((Date()))
+                    }
+
+                    binding.tvDate.text = date()
+                    binding.tvDay.text = dayName(System.currentTimeMillis())
+
+
+                    binding.weatherMapWebView.settings.javaScriptEnabled = true
+                    val mapUrl = "https://openweathermap.org/weathermap?basemap=map&cities=false&layer=precipitation&lat=52.5244&lon=13.4105&zoom=5&apiKey=$KEY_API"
+
+
+
+                    binding.weatherMapWebView.loadUrl(mapUrl)
                 }
             }
+        }
+
+
+        fun dayName(timestamp: Long): String {
+            val sdf = SimpleDateFormat("EEEE", Locale.getDefault())
+            return sdf.format((Date()))
         }
     }
 }
